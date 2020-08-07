@@ -1,29 +1,29 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-
 export default class PlantList extends Component {
   // add state with a property called "plants" - initialize as an empty array
   constructor(){
-    super();
-    this.state ={
-    plants:[]
-  };
-  console.log("constructor is constructing")
-}
-componentDidMount(){
-console.log("cdm is running")
-  axios.get(`http://localhost:3333/plants`)
-  .then(res => {
-    this.setState({
-      plants: res.plantsData
-    })
-    console.log(this.state.plants)
+      super();
+      this.state ={
+      plants:[]
+    };
+    console.log("constructor is constructing")
+  }
+
+  componentDidMount(){
+    console.log("cdm is running")
+    axios.get(`http://localhost:3333/plants`)
+    .then(res => {
+      console.log(res.data)
+      this.setState({
+        plants:[...res.data.plantsData]
       })
-      .catch(err => {
-      console.log(err)
     })
-}
+    .catch(err => {
+        console.log(err)
+      })
+  }
   // when the component mounts:
   //   - fetch data from the server endpoint - http://localhost:3333/plants
   //   - set the returned plants array to this.state.plants
@@ -57,3 +57,4 @@ console.log("cdm is running")
     );
   }
 }
+

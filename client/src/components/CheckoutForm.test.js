@@ -12,7 +12,7 @@ test("form header renders", () => {
 
 
 test("form shows success message on submit with form details", () => {
-    const { getByLabelText, getByText, queryByTestId } = render(<CheckoutForm />);
+    const { getByLabelText, getByText, queryByText } = render(<CheckoutForm />);
     
     const firstInput = getByLabelText(/first name/i);
     const lastInput = getByLabelText(/last name/i);
@@ -20,12 +20,12 @@ test("form shows success message on submit with form details", () => {
 
     fireEvent.change(firstInput, {target:{value:"firstName"}});
     fireEvent.change(lastInput, {target:{value:"lastName"}});
-    fireEvent.change(addwressInput, {target:{value:"address"}});
+    fireEvent.change(addressInput, {target:{value:"address"}});
 
 
     const submit = getByText(/checkout$/i);
 
     fireEvent.click(submit);
 
-    expect(queryByTestId(/success-message/i)).toBeTruthy();
+    expect(queryByText(/You have ordered some plants! Woo-hoo!/i)).toBeTruthy();
 });
